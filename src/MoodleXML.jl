@@ -1,0 +1,1 @@
+# Placeholder for setting up moodle xml exports based on templates
