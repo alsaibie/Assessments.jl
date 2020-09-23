@@ -1,5 +1,4 @@
 using Plots; pyplot();
-
 rcParams = PyPlot.PyDict(PyPlot.matplotlib."rcParams")
 config = Dict(
         "font.size" => 16,
