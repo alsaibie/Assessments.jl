@@ -554,9 +554,9 @@ version = "1.6.6"
 
 [[Polynomials]]
 deps = ["Intervals", "LinearAlgebra", "OffsetArrays", "RecipesBase"]
-git-tree-sha1 = "178a52ba822daf2087977de77738cf744a0efc1b"
+git-tree-sha1 = "ce5fe493693b1ca81aa70b806e353a288f73ec7f"
 uuid = "f27b6e38-b328-58d1-80ce-0feddd5e7a45"
-version = "1.1.8"
+version = "1.1.9"
 
 [[Printf]]
 deps = ["Unicode"]

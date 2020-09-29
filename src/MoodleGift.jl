@@ -1,13 +1,15 @@
-include("QuestionTypes.jl")
+# include("QuestionTypes.jl")
 function svg_as_text(filename)
     svg_content = readuntil(filename, "</svg>", keep = true)
-    # svg_content = readlines(filename)
-    # TODO: give unique ID
     for patch in [':', '~', '=', '#', '{', '}']
         svg_content = replace(svg_content, patch => "\\" * patch)
     end
+    # svg_content = replace(svg_content, "\n" => "<br>")
+    # remove blank lines
+    svg_content = replace(svg_content, r"(?m)^[ \t]*\r?\n" => "" )
+    # return "<br><body>" * svg_content * "</body><br>"
+    return "<br>" * svg_content * "<br>"
 
-    return "<br><body>" * svg_content * "</body><br>"
 end
 
 function parse_to_gift(text)
@@ -17,13 +19,14 @@ function parse_to_gift(text)
 
     text = replace(text, "\n" => "<br>")
 
+
+
     # Gift requires addition of backslash to certain delimeters
     for escape_patch in [':', '~', '=', '#', '{', '}']
         text = replace(text, escape_patch => "\\" * escape_patch)
     end
 
-    # Force fraction into display mode 
-    text = replace(text, "\\frac" => "\\dfrac")
+
 
     # Finally replace SVG figs 
     # TODO: check svg extension is valid
@@ -54,7 +57,7 @@ function list_wrong_ans(ans::Array{String})
     return res
 end
 
-function generate_gift_mcq(q::MCQQuestion)
+function generate_gift_mcq(q::JuliaAssessment.MCQQuestion)
     # generate gift text
     return """
     ::$(q.title)::$(parse_to_gift(q.statement)) 
@@ -67,7 +70,7 @@ function generate_gift_mcq(q::MCQQuestion)
     """
 end
 
-function generate_gift_mcq(q::EssayQuestion)
+function generate_gift_mcq(q::JuliaAssessment.EssayQuestion)
     # generate gift text
     return """
     ::$(q.title)::$(parse_to_gift(q.statement)) 
@@ -78,7 +81,7 @@ function generate_gift_mcq(q::EssayQuestion)
     """
 end
 
-function generate_gift_mcq(q::NumericalQuestion)
+function generate_gift_mcq(q::JuliaAssessment.NumericalQuestion)
     # generate gift text
     return """
     ::$(q.title)::$(parse_to_gift(q.statement)) 
@@ -90,7 +93,7 @@ function generate_gift_mcq(q::NumericalQuestion)
     """
 end
 
-
+export display_gift
 function display_gift(q)
     # Provide an iterable list
     print(generate_gift_category(q[1]))
@@ -99,6 +102,7 @@ function display_gift(q)
     end
 end
 
+export export_to_gift
 function export_to_gift(q)
     io = open("$(q[1].filename).gift.txt", "w")
     write(io, generate_gift_category(q[1]))

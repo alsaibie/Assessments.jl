@@ -1,6 +1,15 @@
 using Parameters
 # All JuliaAssessment question types are defined here
 
+export HomeworkQuestion
+@with_kw mutable struct HomeworkQuestion
+    # Homework Type 
+    title::String = "Essay Question"
+    problem::String = "statement"
+    solution::String = " "
+end
+
+export MCQQuestion
 @with_kw mutable struct MCQQuestion
     # Multiple Choice Question with Single Correct Answer
     # Compatible with: ALL
@@ -14,6 +23,7 @@ using Parameters
     # compatibility = "ALL";
 end
 
+export MCQMQuestion
 @with_kw mutable struct MCQMQuestion
     # Multiple Choice Question with Multiple Correct Answers
     filename::String = "default"
@@ -26,6 +36,7 @@ end
     strategy::String = "WinLose"
 end
 
+export EssayQuestion
 @with_kw mutable struct EssayQuestion
     # Essay Type 
     filename::String = "default"
@@ -36,6 +47,7 @@ end
     feedback::String = " "
 end
 
+export NumericalQuestion
 @with_kw mutable struct NumericalQuestion
     filename::String = "default"
     category::String = " "
@@ -45,3 +57,4 @@ end
     tolerance::Number = 0
     feedback::String = " "
 end
+
