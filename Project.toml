@@ -1,4 +1,4 @@
-name = "Assessments.jl"
+name = "Assessments"
 uuid = "7a5dd7d8-6546-4709-b667-94dee7819b46"
 authors = ["Ali AlSaibie <ali@alsaibie.com>"]
 version = "0.1.0"
