@@ -1,13 +1,28 @@
 using Latexify
 using LaTeXStrings
 import Polynomials: Polynomial, coeffs
+import Base.print
+using SymPy
+
+
 # Latexify doesn't provide options to change the delimeter, extend the method here. 
 
 LaTeX_Formats = ["PDFLaTeX", "KaTeX", "MoodleGift", "MoodleXML"]
 Format = "MoodleGift"; # TODO: change it as an option on the user end
 
-export tex, match_delimiter, latexbmatrix
+export set_format
+function set_format(format::String)
+    global Format = format
+end
 
+# Custom print methods for string interpolation
+Base.print(io::IO, S::Sym) = print(io, SymPy.latex(S.evalf(3)))
+Base.print(io::IO, M::Array) = print(io, latexbmatrix(M))
+
+export UE # Use when not wanting to evaluate expression in substitutions
+UE = sympy.UnevaluatedExpr
+
+export tex, match_delimiter, latexbmatrix
 function tex(x)
     global Format;
 
@@ -18,15 +33,16 @@ function tex(x)
     else
         text = latexify(x);
     end
-
+    
     return match_delimiter(text)
+    
 end
 
 function match_delimiter(text)
     global Format;
     if Format == "KaTeX" 
         return text;
-    elseif Format == "MoodleGift" || Format == "PDFLaTeX"
+    elseif Format == "MoodleGift" || Format == "PDFLaTeX" || Format == "MoodleXML"
         patch = r"\$([^$]+)\$";
         return replace(text, patch => s"\\(\1\\)")
     else
@@ -51,10 +67,10 @@ function latexbmatrix(arr::AbstractArray; adjustment::Symbol=:c, transpose=false
     # eol = double_linebreak ? " \\\\\\\\" : " \\\\"
 
     str = "\\begin{bmatrix}"
-    arr = latexraw(arr; kwargs...)
+    # arr = latexraw(arr; kwargs...)
     
     for i=1:rows, j=1:columns
-        str *= arr[i,j]
+        str *= string(arr[i,j])
         if i==rows &&  j==columns
             # str *= "\\" # TODO: VERIFY WITH GIFT
         else

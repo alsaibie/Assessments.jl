@@ -1,0 +1,25 @@
+\documentclass[12pt, a4]{homework}
+\usepackage{svg}
+\usepackage[mathletters]{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage{breqn}
+
+\newcommand{\CourseNumber}{{{course_number}}}
+\newcommand{\CourseName}{{{course_name}}}
+\newcommand{\CourseSection}{{{course_section}}}
+
+\newcommand{\AssignmentType}{{{assignment_type}}}
+
+\newcommand{\Semester}{{{semester}}}
+\newcommand{\AssignmentNumber}{{{assignment_number}}}   
+\newcommand{\AssignmentDue}{{{due_date}}}
+
+\renewcommand{\baselinestretch}{1.5}
+
+\begin{document}
+\maketitle
+{{instructions}}
+
+{{questions}}
+
+\end{document}

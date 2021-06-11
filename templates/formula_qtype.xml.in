@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+	<question type="category">
+		<category>
+			<text>
+				{{QCATEGORY}}
+			</text>
+		</category>
+		<info format="html">
+			<text>
+			</text>
+		</info>
+		<idnumber>
+		</idnumber>
+	</question>
+	<question type="formulas">
+		<name>
+			<text>
+				{{QTITLE}}
+			</text>
+		</name>
+		<questiontext format="html">
+			<text>
+				<![CDATA[
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
+				</script>
+				<script>
+				$(document).ready(function() {
+				/* Adjust the width of the input box */
+				$("input.formulas_number").css("width", "100px");
+				$("input.formulas_unit ").css("width", "100px");
+				$("input.formulas_number_unit  ").css("width", "150px");
+				});
+				</script>
+				{{QSTATEMENT}}
+				]]>
+			</text>
+		</questiontext>
+		<generalfeedback format="html">
+			<text>
+			</text>
+		</generalfeedback>
+		<defaultgrade>
+			{{QDEFAULTGRADE}}
+		</defaultgrade>
+		<penalty>
+			0.3333333
+		</penalty>
+		<hidden>
+			0
+		</hidden>
+		<idnumber>
+		</idnumber>
+		<correctfeedback format="html">
+			<text>
+				Your answer is correct.
+			</text>
+		</correctfeedback>
+		<partiallycorrectfeedback format="html">
+			<text>
+				Your answer is partially correct.
+			</text>
+		</partiallycorrectfeedback>
+		<incorrectfeedback format="html">
+			<text>
+				Your answer is incorrect.
+			</text>
+		</incorrectfeedback>
+		<shownumcorrect />
+		<varsrandom>
+			<text>
+				{{QRANDOMVARS}}
+			</text>
+		</varsrandom>
+		<varsglobal>
+			<text>
+				<![CDATA[ {{QGLOBALVARS}} ]]>
+			</text>
+		</varsglobal>
+		<answernumbering>
+			<text>
+				abc
+			</text>
+		</answernumbering>
+		{{QANSWERS}}
+	</question>
+</quiz>

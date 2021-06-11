@@ -1,9 +1,18 @@
-module JuliaAssessment
+module Assessments
+
+const PKG_DIR = normpath(@__DIR__, "..")
+const TEMPLATE_DIR = normpath(PKG_DIR, "templates")
+
 
 include("QuestionTypes.jl")
 include("DeLaTeX.jl")
+include("Homework.jl")
+include("Exam.jl")
+include("MoodleXML.jl")
 include("MoodleGift.jl")
+include("MoodleFormula.jl")
 include("AssessmentPlots.jl")
+
 
 export Plots
 # export NumericalQuestion
@@ -35,8 +44,9 @@ function unique_filename(filepath::String)
 end
 
 
-function preparse_text(text::String; format = "MoodleGift")
-    global Format = format
+# function preparse_text(text::String; format = "MoodleGift")
+function preparse_text(text::String)
+    # global Format = format
     # TODO: add shorthands for bold, italic, underline: (eg. \B{} \I{} \U{})
     matches = eachmatch(r"L\"(.*?)\"", text)
     for m in matches
@@ -53,15 +63,26 @@ function preparse_text(text::String; format = "MoodleGift")
 
 end
 
-export display_latex
-function display_latex(q::HomeworkQuestion)
+using Markdown
+export markdown_parse
+function markdown_parse(text::String)
+    text = preparse_text(text)
+    text = replace(text, "\\(" => "\$" )
+    text = replace(text, "\\)" => "\$" )
+    return Markdown.parse(text)
+end
 
-    prob = "$(preparse_text(q.problem, format = "PDFLaTeX"))"
-    sol = "$(preparse_text(q.solution,format = "PDFLaTeX"))"
 
-    println(prob)
-
-    println(sol)
+function svg_as_text(filename)
+    svg_content = readuntil(filename, "</svg>", keep = true)
+    for patch in [':', '~', '=', '#', '{', '}']
+        svg_content = replace(svg_content, patch => "\\" * patch)
+    end
+    # svg_content = replace(svg_content, "\n" => "<br>")
+    # remove blank lines
+    svg_content = replace(svg_content, r"(?m)^[ \t]*\r?\n" => "" )
+    # return "<br><body>" * svg_content * "</body><br>"
+    return "<br>" * svg_content * "<br>"
 
 end
 
