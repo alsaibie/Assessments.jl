@@ -1,6 +1,6 @@
 
-function parse_to_formula_part(p::JuliaAssessment.FormulaQPart, part_index::Int)
-    templatefile = normpath(JuliaAssessment.TEMPLATE_DIR, "formula_qtype_part.xml.in")
+function parse_to_formula_part(p::Assessments.FormulaQPart, part_index::Int)
+    templatefile = normpath(Assessments.TEMPLATE_DIR, "formula_qtype_part.xml.in")
     text = read(templatefile, String)
 
     text = replace(text, "{{QPARTSTATEMENT}}" => parse_to_html_text(p.question))
@@ -78,9 +78,9 @@ function parse_to_formula_variables(d::Dict)
     return text
 end
 
-function generate_formula_question(q::JuliaAssessment.FormulaQuestion)
+function generate_formula_question(q::Assessments.FormulaQuestion)
     
-    templatefile = normpath(JuliaAssessment.TEMPLATE_DIR, "formula_qtype.xml.in")
+    templatefile = normpath(Assessments.TEMPLATE_DIR, "formula_qtype.xml.in")
     text = read(templatefile, String)
     
     text = replace(text, "{{QCATEGORY}}" => "\$course\$/$(q.category)")
@@ -114,7 +114,7 @@ function generate_formula_question(q::JuliaAssessment.FormulaQuestion)
 end
 
 export export_to_formula
-function export_to_formula(q::JuliaAssessment.FormulaQuestion)
+function export_to_formula(q::Assessments.FormulaQuestion)
     # Parse main question 
     xml_text = generate_formula_question(q)
     io = open("$(q.filename).xml", "w")

@@ -14,7 +14,7 @@ function generate_homework_tex(h::HomeworkHeader, qlist::Array{HomeworkQuestion}
         println("output directory already exists")
     end
 
-    templatefile = normpath(JuliaAssessment.TEMPLATE_DIR, "homework.tex.in")
+    templatefile = normpath(Assessments.TEMPLATE_DIR, "homework.tex.in")
     template_text = read(templatefile, String)
 
     text = replace(template_text, "{{course_name}}" => h.course_name)

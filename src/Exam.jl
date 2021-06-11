@@ -14,7 +14,7 @@ function generate_exam_tex(h::ExamHeader, qlist::Array{ExamQuestion})
         println("output directory already exists")
     end
 
-    templatefile = normpath(JuliaAssessment.TEMPLATE_DIR, "exam.tex.in")
+    templatefile = normpath(Assessments.TEMPLATE_DIR, "exam.tex.in")
     template_text = read(templatefile, String)
 
     text = replace(template_text, "{{course_name}}" => h.course_name)

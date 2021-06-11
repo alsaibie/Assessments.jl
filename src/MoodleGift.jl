@@ -67,7 +67,7 @@ function list_multiple_ans(ans::Array{String}, correct = true)
     return res
 end
 
-function generate_gift_question(q::JuliaAssessment.MCQQuestion)
+function generate_gift_question(q::Assessments.MCQQuestion)
     # generate gift text
     return """
     ::$(q.title)::$(parse_to_gift(q.statement)) 
@@ -80,7 +80,7 @@ function generate_gift_question(q::JuliaAssessment.MCQQuestion)
     """
 end
 
-function generate_gift_question(q::JuliaAssessment.MCQMQuestion)
+function generate_gift_question(q::Assessments.MCQMQuestion)
     # generate gift text
     return """
     ::$(q.title)::$(parse_to_gift(q.statement)) 
@@ -93,7 +93,7 @@ function generate_gift_question(q::JuliaAssessment.MCQMQuestion)
     """
 end
 
-function generate_gift_question(q::JuliaAssessment.EssayQuestion)
+function generate_gift_question(q::Assessments.EssayQuestion)
     # generate gift text
     return """
     ::$(q.title)::$(parse_to_gift(q.statement)) 
@@ -104,7 +104,7 @@ function generate_gift_question(q::JuliaAssessment.EssayQuestion)
     """
 end
 
-function generate_gift_question(q::JuliaAssessment.NumericalQuestion)
+function generate_gift_question(q::Assessments.NumericalQuestion)
     # generate gift text
     return """
     ::$(q.title)::$(parse_to_gift(q.statement)) 
@@ -116,7 +116,7 @@ function generate_gift_question(q::JuliaAssessment.NumericalQuestion)
     """
 end
 
-function generate_gift_question(q::JuliaAssessment.MatchQuestion)
+function generate_gift_question(q::Assessments.MatchQuestion)
     # generate gift text
     answer_pairs = q.answer_pairs # TODO: No need to shuffle, Moodle already shuffles them
     ans_list = """
